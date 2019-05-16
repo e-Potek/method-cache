@@ -75,9 +75,9 @@ The cacher adds a little bit of overhead, so if you're only ever fetching one or
 
 The cacher currently only works for methods initiated by a client. Server-side initiated methods are not cached for the moment.
 
-If you specify any `fields` in your selector, caching will not work either. This can be fixed in the future.
+If you specify any `fields` in your selector, multiple caches will be created based on the `fields`.
 
-When you update a document, the cacher will try to identify which document it has to clear from the cache. It works if your update selector targets `_id`s only, just as the caching strategy does. If you use a more complex selector, it will fall back to clearing the entire cache (across collections).
+When you update a document, the cacher will try to identify which document it has to clear from the cache. It works if your update selector targets `_id`s only, just as the caching strategy does. If you use a more complex selector, it will fall back to clearing the entire cache (across collections). If you've used `fields` in your queries, they will not be invalidated.
 
 ## Performance example
 
