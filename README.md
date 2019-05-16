@@ -52,6 +52,7 @@ You can pass the following options to `initializeMethodCache`:
 | --------------- | ------- | ------------- | ------------------------------------------------- |
 | `enableCaching` | Boolean | `false`       | Enables caching on all methods by default         |
 | `log`           | Boolean | `true`        | Enables the initial logging on startup of caching |
+| `logStats`      | Boolean | `false`       | Logs cache hit ratios for all your methods        |
 
 
 ### `MethodCache`
