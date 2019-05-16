@@ -10,6 +10,7 @@ const call = (name, ...params) =>
 
 describe('Method cache tests- client', function () {
   this.slow(1);
+
   beforeEach((done) => {
     Meteor.call('reset', done);
   });
@@ -80,12 +81,27 @@ describe('Method cache tests- client', function () {
     });
 
     it('does not cache nested methods', async () => {
-      const todos = await call('updateAndGetMulti', false);
+      const todos = await call('nestedUpdateAndGetMulti', false);
 
       expect(todos).to.deep.equal([
         { _id: 'id1', title: 'yo' },
         { _id: 'id2', title: 'yo' },
       ]);
+    });
+  });
+
+  describe('when using fields', () => {
+    it('caches properly', async () => {
+      await call('insert');
+      const result = await call('isEqualWithFields', 1000, true);
+
+      expect(result).to.equal(true);
+    });
+
+    it('does not cache multiple requests with different fields', async () => {
+      const result = await call('fetchWithFields');
+
+      expect(result).to.equal(false);
     });
   });
 });

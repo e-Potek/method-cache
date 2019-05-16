@@ -4,14 +4,16 @@ import { MethodCache } from 'meteor/epotek:method-cache';
 
 const Todos = new Mongo.Collection('todos');
 
-const checkTodos = async (times) => {
-  const result1 = Todos.findOne({ _id: 'todoId' });
+const eq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+
+const checkTodos = async (times, fields) => {
+  const result1 = Todos.findOne({ _id: 'todoId' }, { fields });
   await Todos.rawCollection().update({}, { title: 'yo2' });
 
   let isEqual = true;
   for (let index = 0; index < times; index++) {
-    const result2 = Todos.findOne('todoId');
-    isEqual = JSON.stringify(result1) === JSON.stringify(result2);
+    const result2 = Todos.findOne('todoId', { fields });
+    isEqual = eq(result1, result2);
   }
 
   return isEqual;
@@ -74,5 +76,20 @@ Meteor.methods({
     }
 
     return Meteor.call('updateAndGetMulti', false);
+  },
+  async isEqualWithFields(times) {
+    MethodCache.enableCaching();
+    return checkTodos(times, { title: true });
+  },
+  async fetchWithFields(times) {
+    MethodCache.enableCaching();
+    Todos.insert({ _id: 'id1', title: 'yo', description: 'dude' });
+
+    const todo1 = Todos.findOne({ _id: 'id1' }, { fields: { title: 1 } });
+    const todo2 = Todos.findOne({ _id: 'id1' }, { fields: { description: 1 } });
+
+    const isEqual = eq(todo1, todo2);
+
+    return isEqual;
   },
 });
