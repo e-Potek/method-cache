@@ -1,6 +1,6 @@
 Package.describe({
   summary: 'Meteor method cache',
-  version: '0.1.1',
+  version: '0.1.2',
   git: 'https://github.com/e-Potek/method-cache',
   name: 'epotek:method-cache',
 });
