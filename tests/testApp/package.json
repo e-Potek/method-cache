@@ -1,0 +1,12 @@
+{
+  "name": "method-cache-testapp",
+  "scripts": {
+    "start": "meteor run",
+    "test": "TEST_WATCH=1 meteor test --driver-package meteortesting:mocha"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.3.4",
+    "chai": "^4.2.0",
+    "meteor-node-stubs": "^0.4.1"
+  }
+}
