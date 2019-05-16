@@ -1,16 +1,17 @@
 Package.describe({
   summary: 'Meteor method cache',
   version: '0.1.0',
-  //   git: 'https://github.com/meteorhacks/kadira.git',
+  git: 'https://github.com/e-Potek/method-cache',
   name: 'epotek:method-cache',
 });
 
 const configurePackage = (api) => {
+  api.versionsFrom('1.8.1');
   api.mainModule('lib/index.js', 'server');
   api.use([
     'ecmascript',
-    'lamhieu:meteorx',
-    'dburles:mongo-collection-instances',
+    'lamhieu:meteorx@2.1.1',
+    'dburles:mongo-collection-instances@0.3.5',
   ]);
 };
 
