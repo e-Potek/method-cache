@@ -26,7 +26,7 @@ import { MethodCache } from 'meteor/epotek:method-cache';
 
 Meteor.methods({
     heavyMethod() {
-        MethodCache.enableCache();
+        MethodCache.enableCaching();
 
         const todos = Todos.find({ userId: this.userId }).fetch();
 
@@ -43,6 +43,25 @@ Meteor.methods({
     }
 })
 ```
+
+### Options
+
+You can pass the following options to `initializeMethodCache`:
+
+| Param           | Type    | Default value | Description                                       |
+| --------------- | ------- | ------------- | ------------------------------------------------- |
+| `enableCaching` | Boolean | `false`       | Enables caching on all methods by default         |
+| `log`           | Boolean | `true`        | Enables the initial logging on startup of caching |
+
+
+### `MethodCache`
+
+This package exports the `MethodCache` class, which can be used to enable or disable caching in your methods:
+
+* `MethodCache.enableCaching()`: Enables caching on this method, if `options.enableCaching` is set to `false`
+* `MethodCache.disableCaching()`: Disables caching on this method, if `options.enableCaching` is set to `true`
+* `MethodCache.clearCache()`: Can be run anywhere inside a method, clears the entire cache
+
 
 ## What it does (and what it doesn't)
 
@@ -66,4 +85,4 @@ Fetch 1000 identical documents repeatedly (1-field documents) on a local machine
 * Without caching: **~350ms**
 * With caching: **~40ms**
 
-Which is an almsot **10x** increase in performance
+Which is an almost **10x** increase in performance
