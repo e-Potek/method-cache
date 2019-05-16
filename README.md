@@ -2,6 +2,8 @@
 
 Use graphql's DataLoader library to speed up your heavy methods.
 
+*Warning: Probably don't use this in production, you will get errors with complex requests*
+
 
 ## Usage
 
