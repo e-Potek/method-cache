@@ -68,7 +68,7 @@ This package exports the `MethodCache` class, which can be used to enable or dis
 
 ## What it does (and what it doesn't)
 
-The cacher works by caching any `fetch` that only targets pure `_id`s. Meaning any selector that uses more than an `_id` or an array of `_id`s, will not be cached.
+The cacher works by caching any `fetch` that only targets pure `_id`s. Meaning any selector that uses more than an `_id` will not be cached. It's meant to work for these selectors: `{ _id: 'someDocId' }` and `{ _id: { $in: ['someDocId', 'someOtherDocId'] } }`.
 This is a limitation that can be adressed in the future.
 
 The cacher adds a little bit of overhead, so if you're only ever fetching one or two duplicate documents in your method, it might be a bit slower.
@@ -81,7 +81,7 @@ When you update a document, the cacher will try to identify which document it ha
 
 ## Performance example
 
-You can run the tests in the `testApp` in this repo to run some examples on your machine, but here's what it can do:
+You can run the tests with `meteor npm t` in this repo to run some examples on your machine, but here's what it can do:
 
 Fetch 1000 identical documents repeatedly (1-field documents) on a local machine (i.e. super fast DB) results in the following stats:
 
